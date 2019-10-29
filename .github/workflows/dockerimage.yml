@@ -7,6 +7,8 @@ jobs:
     name: Build Push
     runs-on: ubuntu-latest
     steps:
+      - name: LS
+        run: ls
       - name: Docker Build
         run: docker build -f Dockerfile.DAL -t ${{ secrets.DOCKER_USERNAME }}/ehealth-dal:${GITHUB_SHA:0:8} .
       - name: Docker Login
