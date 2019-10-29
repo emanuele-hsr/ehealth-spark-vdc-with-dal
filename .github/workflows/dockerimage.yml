@@ -8,9 +8,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
-      - name: Docker Build
-        run: docker build -f Dockerfile.DAL -t ${{ secrets.DOCKER_USERNAME }}/ehealth-dal:${GITHUB_SHA:0:8} .
       - name: Docker Login
-        run: echo "${{ secrets.DOCKER_TOKEN }}" | docker login -u ${{ secrets.DOCKER_USERNAME }} --password-stdin
+        run: echo "${{ secrets.DITAS_DOCKER_TOKEN }}" | docker login -u ${{ secrets.DITAS_DOCKER_USERNAME }} --password-stdin
+      - name: Docker Build
+        run: docker build -f Dockerfile.DAL -t ${{ secrets.DITAS_DOCKER_USERNAME }}/ehealth-dal:${GITHUB_SHA:0:8} .
       - name: Docker Push
-        run: docker push ${DOCKER_USERNAME}/ehealth-dal:${GITHUB_SHA:0:8}
+        run: docker push ${{ secrets.DITAS_DOCKER_USERNAME }}/ehealth-dal:${GITHUB_SHA:0:8}
