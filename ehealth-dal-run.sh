@@ -1,5 +1,18 @@
 #! /bin/bash
 
+function check {
+    [ -z "$2" ] && echo "Need to set $1" && exit 1;
+}
+
+check MINIO_URI $MINIO_URI
+check MINIO_ACCESS_KEY $MINIO_ACCESS_KEY
+check MINIO_SECRET_KEY $MINIO_SECRET_KEY
+check MYSQL_URI $MYSQL_URI
+check MYSQL_USERNAME $MYSQL_USERNAME
+check MYSQL_PASSWORD $MYSQL_PASSWORD
+check POLICY_ENFORCEMENT_URI $POLICY_ENFORCEMENT_URI
+check KEYCLOAK_PUBLIC_KEY_URI $KEYCLOAK_PUBLIC_KEY_URI
+
 MYSQL_URI=$(echo $MYSQL_URI | sed -e "s,&,\\\&,")
 
 sed -e "s,#{MINIO_URI},$MINIO_URI,g" \
