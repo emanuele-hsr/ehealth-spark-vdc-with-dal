@@ -24,6 +24,10 @@ FROM openjdk:8u212
 
 COPY --from=BUILD_DAL /app/dist /app/dist
 
-COPY --from=BUILD_DAL /app/src/test/resources/ehealthGrpcServerConfig.yml /app/config/ehealthGrpcServerConfig.yml
+COPY DAL/src/test/resources/ehealthGrpcServerConfig.yml /app/config/ehealth-dal-config.yml.sed
 
-CMD ["/app/dist/ehealth-dal-0.1/bin/ehealth-server", "/app/config/ehealthGrpcServerConfig.yml"]
+COPY ehealth-dal-run.sh /app/ehealth-dal-run.sh
+
+RUN chmod +x /app/ehealth-dal-run.sh
+
+CMD ["/app/ehealth-dal-run.sh"]
